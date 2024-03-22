@@ -68,7 +68,7 @@ public class ConfigureABusiness {
   static void loadProducts(Business b, int productCount) {
     SupplierDirectory supplierDirectory = b.getSupplierDirectory();
 
-    for (Supplier supplier : supplierDirectory.getSuplierList()) {
+    for (Supplier supplier : supplierDirectory.getSupplierList()) {
 
       int randomProductNumber = getRandom(1, productCount);
       ProductCatalog productCatalog = supplier.getProductCatalog();

@@ -14,6 +14,8 @@ import info5001.model.MarketingManagement.MarketingPersonDirectory;
 import info5001.model.OrderManagement.MasterOrderList;
 import info5001.model.Personnel.EmployeeDirectory;
 import info5001.model.Personnel.PersonDirectory;
+import info5001.model.ProductManagement.Product;
+import info5001.model.ProductManagement.ProductCatalog;
 import info5001.model.ProductManagement.ProductSummary;
 import info5001.model.ProductManagement.ProductsReport;
 import info5001.model.ProductManagement.SolutionOfferCatalog;
@@ -45,7 +47,7 @@ public class Business {
         name = n;
         masterorderlist = new MasterOrderList();
         suppliers = new SupplierDirectory();
-//        solutionoffercatalog = new SolutionOfferCatalog();
+        // solutionoffercatalog = new SolutionOfferCatalog();
         persondirectory = new PersonDirectory();
         customerdirectory = new CustomerDirectory(this);
         salespersondirectory = new SalesPersonDirectory(this);
@@ -67,6 +69,7 @@ public class Business {
     public UserAccountDirectory getUserAccountDirectory() {
         return useraccountdirectory;
     }
+
     public MarketingPersonDirectory getMarketingPersonDirectory() {
         return marketingpersondirectory;
     }
@@ -93,7 +96,7 @@ public class Business {
 
     public int getHowManySupplierProductsAlwaysAboveTarget(String n) {
         ProductsReport productsreport = getSupplierPerformanceReport(n); // see above
-        int i = productsreport.getProductsAlwaysAboveTarget().size(); //return size of the arraylist
+        int i = productsreport.getProductsAlwaysAboveTarget().size(); // return size of the arraylist
         return i;
     }
 
@@ -108,11 +111,27 @@ public class Business {
     public MasterOrderList getMasterOrderList() {
         return masterorderlist;
     }
-        public EmployeeDirectory getEmployeeDirectory() {
+
+    public EmployeeDirectory getEmployeeDirectory() {
         return employeedirectory;
     }
 
-    public void printShortInfo(){
+    public ProductsReport generateProductSalesReport() {
+        ArrayList<Supplier> suppliersList = suppliers.getSupplierList();
+        ProductsReport allProductsReport = new ProductsReport();
+
+        for (Supplier s : suppliersList) {
+            ProductCatalog pc = s.getProductCatalog();
+            for (Product p : pc.getProductList()) {
+                allProductsReport.addProductSummary(new ProductSummary(p));
+            }
+        }
+
+        allProductsReport.sortBySalesVolume();
+        return allProductsReport;
+    }
+
+    public void printShortInfo() {
         System.out.println("Checking what's inside the business hierarchy.");
         suppliers.printShortInfo();
         customerdirectory.printShortInfo();

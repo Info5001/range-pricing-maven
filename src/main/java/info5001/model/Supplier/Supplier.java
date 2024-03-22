@@ -19,47 +19,45 @@ public class Supplier {
     String name;
     ProductCatalog productcatalog;
     ProductsReport productsreport;
-    public Supplier(String n){
+
+    public Supplier(String n) {
         name = n;
         productcatalog = new ProductCatalog("software");
-        
+
     }
-    
-    public ProductsReport prepareProductsReport(){
-        
-        productsreport = productcatalog.generatProductPerformanceReport();
+
+    public ProductsReport prepareProductsReport() {
+        productsreport = productcatalog.generateProductPerformanceReport();
         return productsreport;
     }
-    
-    public ArrayList<ProductSummary> getProductsAlwaysAboveTarget(){
-       
-        if(productsreport==null) productsreport = prepareProductsReport();
-       return productsreport.getProductsAlwaysAboveTarget();
-       
+
+    public ArrayList<ProductSummary> getProductsAlwaysAboveTarget() {
+
+        if (productsreport == null)
+            productsreport = prepareProductsReport();
+        return productsreport.getProductsAlwaysAboveTarget();
+
     }
-    
-    public String getName(){
+
+    public String getName() {
         return name;
     }
-        
-    
-    public ProductCatalog getProductCatalog(){
+
+    public ProductCatalog getProductCatalog() {
         return productcatalog;
     }
-    
-    public void printShortInfo(){
+
+    public void printShortInfo() {
         System.out.println("Checking supplier " + name);
         productcatalog.printShortInfo();
     }
 
+    // add supplier product ..
 
-
-    //add supplier product ..
-    
-    //update supplier product ...
+    // update supplier product ...
     @Override
-   public String toString(){
-       return name;
-       
-   }
+    public String toString() {
+        return name;
+
+    }
 }
