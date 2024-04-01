@@ -5,7 +5,10 @@
  */
 package info5001.model.Business;
 
+import java.util.ArrayList;
 import java.util.Random;
+
+import com.github.javafaker.Faker;
 
 import info5001.model.Business.Business;
 import info5001.model.CustomerManagement.CustomerDirectory;
@@ -38,6 +41,9 @@ public class ConfigureABusiness {
   static int lowerPriceLimit = 10;
   static int range = 5;
   static int productMaxQuantity = 5;
+  static Faker faker = new Faker();
+  static ArrayList<String> firstNames = new ArrayList();
+  static ArrayList<String> lastNames = new ArrayList();
 
   public static Business createABusinessAndLoadALotOfData(String name, int supplierCount, int productCount,
       int customerCount, int orderCount, int itemCount) {
@@ -59,9 +65,10 @@ public class ConfigureABusiness {
   }
 
   public static void loadSuppliers(Business b, int supplierCount) {
+
     SupplierDirectory supplierDirectory = b.getSupplierDirectory();
     for (int index = 1; index <= supplierCount; index++) {
-      supplierDirectory.newSupplier("Supplier #" + index);
+      supplierDirectory.newSupplier(faker.company().name());
     }
   }
 
@@ -75,7 +82,7 @@ public class ConfigureABusiness {
 
       for (int index = 1; index <= randomProductNumber; index++) {
 
-        String productName = "Product #" + index + " from " + supplier.getName();
+        String productName = faker.commerce().productName() + " from " + supplier.getName();
         int randomFloor = getRandom(lowerPriceLimit, lowerPriceLimit + range);
         int randomCeiling = getRandom(upperPriceLimit - range, upperPriceLimit);
         int randomTarget = getRandom(randomFloor, randomCeiling);
@@ -85,7 +92,7 @@ public class ConfigureABusiness {
     }
   }
 
-  static int getRandom(int lower, int upper) {
+  public static int getRandom(int lower, int upper) {
     Random r = new Random();
 
     // nextInt(n) will return a number from zero to 'n'. Therefore e.g. if I want
@@ -100,7 +107,7 @@ public class ConfigureABusiness {
     PersonDirectory personDirectory = b.getPersonDirectory();
 
     for (int index = 1; index <= customerCount; index++) {
-      Person newPerson = personDirectory.newPerson("" + index);
+      Person newPerson = personDirectory.newPerson(faker.name().fullName());
       customerDirectory.newCustomerProfile(newPerson);
     }
   }
@@ -154,5 +161,44 @@ public class ConfigureABusiness {
     // Make sure order items are connected to the order
 
   }
+
+  static void populateNames() {
+    firstNames.add("James");
+    firstNames.add("Robert");
+    firstNames.add("John");
+    firstNames.add("Michael");
+    firstNames.add("David");
+    firstNames.add("Mary");
+    firstNames.add("Patricia");
+    firstNames.add("Jennifer");
+    firstNames.add("Linda");
+    firstNames.add("Elizabeth");
+    // last names
+    lastNames.add("Smith");
+    lastNames.add("JOHNSON");
+    lastNames.add("WILLIAMS");
+    lastNames.add("BROWN");
+    lastNames.add("JONES");
+    lastNames.add("GARCIA");
+  }
+
+  public static String getFirstName(){
+    int randomIndex = getRandom(0, firstNames.size());
+    return firstNames.get(randomIndex);
+  }
+
+  public static String getLastName(){
+    int randomIndex = getRandom(0, lastNames.size());
+    return lastNames.get(randomIndex);
+  }
+
+
+
+  public static String getRandomName() {
+    populateNames();
+    return getFirstName() + " " + getLastName();
+  }
+
+
 
 }

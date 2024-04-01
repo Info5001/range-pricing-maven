@@ -55,38 +55,49 @@ public class RangePricingApplication {
 
     // Random numbers
 
-    // Random randomInstance = new Random();
+    // Random randomGenerator = new Random();
 
-    // System.out.println(" Random Numbers: ");
+    // System.out.println(" Random Numbers from 0 to 99 (incl.): ");
+
+    // for (int index=0; index<50; index++) {
+    //   int randomNumber = randomGenerator.nextInt(100);
+    //   System.out.println(randomNumber);
+    // }
+
+    // System.out.println(" Random Numbers from 150 to 170 (incl.): ");
+    // for (int index=0; index<50; index++) {
+    //   int randomNumber = 150 + randomGenerator.nextInt(20);
+    //   System.out.println(randomNumber);
+    // }
 
     // ArrayList<Integer> randomIntegers = new ArrayList<Integer>();
     // int totalNumberOfRandomNumbers = 100;
     // int counter = 0;
 
     // while (counter < totalNumberOfRandomNumbers) {
-    // int randomInt = randomInstance.nextInt(100);
-    // if (!randomIntegers.contains(randomInt)) {
-    // randomIntegers.add(randomInt);
-    // counter++; // increment counter only if the number is not already in the list
-    // }
+    //   int randomInt = randomInstance.nextInt(100);
+    //   if (!randomIntegers.contains(randomInt)) {
+    //   randomIntegers.add(randomInt);
+    //   counter++; // increment counter only if the number is not already in the list
+    //   }
     // }
 
     // for (Integer integer : randomIntegers) {
-    // System.out.println(integer);
+    //   System.out.println(integer);
     // }
 
-    // System.out.println("We picked "+ randomIntegers.size() + " unique random
-    // numbers from 0 to 100.");
+    // System.out.println("We picked "+ randomIntegers.size() + " unique random numbers from 0 to 100.");
 
     // // Data that is not number (e.g. names, addresses, etc.)
 
-    // Faker fakerInstance = new Faker();
+    // Faker fakeItemsGenerator = new Faker();
 
     // System.out.println(" Customer list: ");
+    
     // for (int i = 0; i < 200; i++) {
 
-    // String fullName = fakerInstance.name().fullName();
-    // String address = fakerInstance.address().fullAddress();
+    // String fullName = fakeItemsGenerator.name().fullName();
+    // String address = fakeItemsGenerator.address().fullAddress();
 
     // System.out.println(fullName);
     // System.out.println(address);
@@ -96,18 +107,32 @@ public class RangePricingApplication {
     // System.out.println(" Supplier list: ");
     // for (int i = 0; i < 200; i++) {
 
-    // String companyName = fakerInstance.company().name();
+    // String companyName = fakeItemsGenerator.company().name();
 
     // System.out.println(companyName);
-    // System.out.println("-----------------");
+    // // System.out.println("-----------------");
     // }
 
-    Business business = ConfigureABusiness.createABusinessAndLoadALotOfData("Amazon", 20, 10, 30,
-        100, 10);
-    // business.printShortInfo();
+    // Things to consider when using random names/items/numbers etc.
 
-    ProductsReport productsreport = business.generateProductSalesReport();
-    productsreport.printProductReport();
+    /* 
+      1. If everything is random then how can we check for the correctness of the output. 
+         Solution: You should have some stable use case, some data that will give you predictable output
+
+      2. Can you apply randomness to everything regardless of business case.
+        No, not always.
+    */
+
+    for (int index=0; index<50; index++) {
+      System.out.println(ConfigureABusiness.getRandomName());
+    }
+
+    // Business business = ConfigureABusiness.createABusinessAndLoadALotOfData("Amazon", 20, 10, 30,
+    //     100, 10);
+    // // // business.printShortInfo();
+
+    // ProductsReport productsreport = business.generateProductSalesReport();
+    // productsreport.printProductReport();
 
   }
 
